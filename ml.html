@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<html lang="en">
+
+<head>
+  <title>NetData Dashboard</title>
+  <meta name="application-name" content="netdata">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="author" content="costa@tsaousis.gr">
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://cloud.githubusercontent.com/assets/2662304/22945737/e98cd0c6-f2fd-11e6-96f1-5501934b0955.png" />
+  <meta property="og:url" content="http://my-netdata.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="netdata" />
+  <meta property="og:title" content="netdata - real-time performance monitoring, done right!" />
+  <meta property="og:description" content="Stunning real-time dashboards, blazingly fast and extremely interactive. Zero configuration, zero dependencies, zero maintenance." />
+</head>
+<script>
+  var netdataTheme = 'slate';
+</script>
+<script type="text/javascript" src="dashboard.js?v20170724-1"></script>
+<script>
+  // Set options for TV operation
+  // This has to be done, after dashboard.js is loaded
+  // destroy charts not shown (lowers memory on the browser)
+  NETDATA.options.current.destroy_on_hide = true;
+  // set this to false, to always show all dimensions
+  NETDATA.options.current.eliminate_zero_dimensions = true;
+  // lower the pressure on this browser
+  NETDATA.options.current.concurrent_refreshes = false;
+  // if the tv browser is too slow (a pi?)
+  // set this to false
+  NETDATA.options.current.parallel_refresher = true;
+  // always update the charts, even if focus is lost
+  NETDATA.options.current.stop_updates_when_focus_is_lost = false;
+  // Since you may render charts from many servers and any of them may
+  // become offline for some time, the charts will break.
+  // This will reload the page every RELOAD_EVERY minutes
+  var RELOAD_EVERY = 5;
+  setTimeout(function() {
+    location.reload();
+  }, RELOAD_EVERY * 60 * 1000);
+</script>
+
+<body style="height: -webkit-fill-available;">
+  <div class="container" style="display: block; margin: auto; position: relative; top: 7%; width: 100%; text-align: center;">
+    <div class="netdata-chart-row">
+      <div class="netdata-container-easypiechart" style="margin-right: 10px; width: 9%; will-change: transform;" data-netdata="system.swap" data-dimensions="used" data-append-options="percentage" data-chart-library="easypiechart" data-title="Used Swap"
+        data-units="%" data-easypiechart-max-value="100" data-width="9%" data-before="0" data-after="-300" data-points="300" data-colors="#DD4400" role="application">
+      </div>
+      <div class="netdata-container-easypiechart" style="margin-right: 10px; width: 11%; will-change: transform;" data-netdata="system.io" data-dimensions="in" data-chart-library="easypiechart" data-title="Disk Read" data-width="11%" data-before="0"
+        data-after="-300" data-points="300" data-common-units="system.io.mainhead" role="application">
+      </div>
+      <div class="netdata-container-easypiechart" style="margin-right: 10px; width: 11%; will-change: transform;" data-netdata="system.io" data-dimensions="out" data-chart-library="easypiechart" data-title="Disk Write" data-width="11%" data-before="0"
+        data-after="-300" data-points="300" data-common-units="system.io.mainhead" role="application">
+      </div>
+      <div class="netdata-container-gauge" style="margin-right: 10px; width: 20%; will-change: transform;" data-netdata="system.cpu" data-chart-library="gauge" data-title="CPU" data-units="%" data-gauge-max-value="100" data-width="20%" data-after="-300"
+        data-points="300" data-colors="#22AA99" role="application">
+      </div>
+      <div class="netdata-container-easypiechart" style="margin-right: 10px; width: 11%; will-change: transform;" data-netdata="system.net" data-dimensions="received" data-chart-library="easypiechart" data-title="Net Inbound" data-width="11%"
+        data-before="0" data-after="-300" data-points="300" data-common-units="system.net.mainhead" role="application">
+      </div>
+      <div class="netdata-container-easypiechart" style="margin-right: 10px; width: 11%; will-change: transform;" data-netdata="system.net" data-dimensions="sent" data-chart-library="easypiechart" data-title="Net Outbound" data-width="11%"
+        data-before="0" data-after="-300" data-points="300" data-common-units="system.net.mainhead" role="application">
+      </div>
+      <div class="netdata-container-easypiechart" style="margin-right: 10px; width: 9%; will-change: transform;" data-netdata="system.ram" data-dimensions="used|buffers|active|wired" data-append-options="percentage" data-chart-library="easypiechart"
+        data-title="Used RAM" data-units="%" data-easypiechart-max-value="100" data-width="9%" data-after="-300" data-points="300" data-colors="#EE9911" role="application">
+      </div>
+    </div>
+    <br><br>
+    <div class="netdata-chart-row">
+      <div data-netdata="system.ram" data-dimensions="used" data-chart-library="gauge" data-gauge-max-value="24000" data-width="20%" data-after="-600" data-points="600" data-title="Memory Used" data-colors="#56c3da"></div>
+    </div>
+    <br><br>
+    <div class="netdata-chart-row">
+      <div data-netdata="nvidia_smi.gpu0_gpu_utilization" data-chart-library="gauge" data-gauge-max-value="100" data-width="20%" data-after="-600" data-points="600" data-title="GPU Utilization" data-colors="#ce4877">
+      </div>
+      <div data-netdata="nvidia_smi.gpu0_mem_usage" data-dimensions="used" data-chart-library="gauge" data-gauge-max-value="6000" data-desired-units="GiB" data-width="20%" data-title="GPU Memory Usage" data-after="-600" data-points="600" data-colors="#9665f9">
+      </div>
+      <br>
+    </div>
+  </div>
+</body>
+
+</html>
